@@ -14,6 +14,7 @@ import FormDialog from "../../../shared/components/FormDialog";
 import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
 import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
+import { login } from "../../../shared/functions/request";
 
 const styles = (theme) => ({
   forgotPassword: {
@@ -50,22 +51,12 @@ function LoginDialog(props) {
   const loginEmail = useRef();
   const loginPassword = useRef();
 
-  const login = useCallback(() => {
+  const doLogin = useCallback(() => {
     setIsLoading(true);
     setStatus(null);
-    const data = {
-      email: loginEmail.current.value,
-      password: loginPassword.current.value,
-    };
-    fetch("http://localhost:9999/cleantracks/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((result) => {
+
+    login(loginEmail.current.value, loginPassword.current.value).then(
+      (result) => {
         console.log("login: ", result);
         if (result.code === 0) {
           localStorage.setItem("user", JSON.stringify(result.data));
@@ -78,7 +69,8 @@ function LoginDialog(props) {
         }
         setIsLoading(false);
         onClose();
-      });
+      }
+    );
   }, [setIsLoading, loginEmail, loginPassword, history, setStatus]);
 
   return (
@@ -89,7 +81,7 @@ function LoginDialog(props) {
         loading={isLoading}
         onFormSubmit={(e) => {
           e.preventDefault();
-          login();
+          doLogin();
         }}
         hideBackdrop
         headline="Login"

@@ -13,6 +13,7 @@ import FormDialog from "../../../shared/components/FormDialog";
 import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
 import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
+import { register } from "../../../shared/functions/request";
 
 const styles = (theme) => ({
   link: {
@@ -41,7 +42,7 @@ function RegisterDialog(props) {
   const registerPassword = useRef();
   const registerPasswordRepeat = useRef();
 
-  const register = useCallback(() => {
+  const doRegister = useCallback(() => {
     if (!registerTermsCheckbox.current.checked) {
       setHasTermsOfServiceError(true);
       return;
@@ -54,24 +55,16 @@ function RegisterDialog(props) {
     }
     setStatus(null);
     setIsLoading(true);
-    const data = {
-      email: registerEmail.current.value,
-      password: registerPassword.current.value
-    }
-    fetch("http://localhost:9999/cleantracks/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then((result) => {
-      if (result.code === 0) {
-        setStatus(null);
-      } else {
-        setStatus(result.message);
+    register(registerEmail.current.value, registerPassword.current.value).then(
+      (result) => {
+        if (result.code === 0) {
+          setStatus(null);
+        } else {
+          setStatus(result.message);
+        }
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    });
+    );
   }, [
     setIsLoading,
     setStatus,
@@ -89,7 +82,7 @@ function RegisterDialog(props) {
       headline="Register"
       onFormSubmit={(e) => {
         e.preventDefault();
-        register();
+        doRegister();
       }}
       hideBackdrop
       hasCloseIcon

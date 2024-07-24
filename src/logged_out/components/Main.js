@@ -10,6 +10,7 @@ import CookieConsent from "./cookies/CookieConsent";
 import DialogSelector from "./register_login/DialogSelector";
 import Routing from "./Routing";
 import smoothScrollTop from "../../shared/functions/smoothScrollTop";
+import { checkLogin } from "../../shared/functions/request";
 
 AOS.init({ once: true });
 
@@ -79,22 +80,14 @@ function Main(props) {
       const user = JSON.parse(userStr);
       console.log("check login user: ", user);
       if (user.token) {
-        fetch("http://localhost:9999/cleantracks/api/checkLogin", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "token": user.token
-          },
+        checkLogin(user.token).then((result) => {
+          console.log("check login requestL ", result);
+          if (result.code === 0) {
+            // 已登陆
+          } else {
+            localStorage.removeItem("user");
+          }
         })
-          .then((response) => response.json())
-          .then((result) => {
-            console.log("check login requestL ", result);
-            if (result.code === 0) {
-              // 已登陆
-            } else {
-              localStorage.removeItem("user");
-            }
-          });
       }
     }
   }, [setBlogPosts]);
