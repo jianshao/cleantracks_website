@@ -1,16 +1,18 @@
-const base_url = "http://localhost:9999";
+const base_url = "http://ct.takecares.cn";
 
 function request(api, options) {
-  fetch(base_url + api, options).then((response) => {
-    if (response.status === 200) {
+  return fetch(base_url + api, options).then((response) => {
+    console.log("resp: ", response);
+    if (response.ok) {
       return response.json();
     } else {
-      return null;
+      console.log("request failed: ", api)
+      return {};
     }
   });
 }
 
-export function login(email, password) {
+export async function login(email, password) {
   const api = "/cleantracks/api/login";
   const options = {
     method: "POST",
@@ -19,12 +21,11 @@ export function login(email, password) {
     },
     body: JSON.stringify({ email: email, password: password }),
   };
-  request(api, options).then((result) => {
-    if (result.code) {
-      console.log(api + " failed: " + result.message);
-    }
-    return result;
-  });
+  const result = await request(api, options);
+  if ("code" in result && result.code) {
+    console.log(api + " failed: " + result.message);
+  }
+  return result;
 }
 
 export function register(email, password) {
@@ -36,7 +37,7 @@ export function register(email, password) {
     },
     body: JSON.stringify({ email: email, password: password }),
   };
-  request(api, options).then((result) => {
+  return request(api, options).then((result) => {
     if (result.code) {
       console.log(api + " failed: " + result.message);
     }
@@ -53,7 +54,7 @@ export async function checkLogin(token) {
       token: token,
     },
   };
-  request(api, options).then((result) => {
+  return request(api, options).then((result) => {
     if (result.code) {
       console.log(api + " failed: " + result.message);
     }

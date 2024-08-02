@@ -78,11 +78,12 @@ function PricingSection(props) {
   ];
 
   function handleSubscribe() {
+    const url = "https://cleantracks.lemonsqueezy.com/buy/c4754107-8056-4f84-a9ca-f0e6826efdb9"
     const userStr = localStorage.getItem("user")
     if (userStr) {
       const user = JSON.parse(userStr)
       if (user.token) {
-        window.open("https://cleantracks.lemonsqueezy.com/buy/c4754107-8056-4f84-a9ca-f0e6826efdb9", "_blank")
+        window.open(url + `&uid=${user.uid}`, "_blank")
         return
       }
     }
@@ -92,8 +93,8 @@ function PricingSection(props) {
     const userStr = localStorage.getItem("user");
     if (userStr) {
       const user = JSON.parse(userStr);
-      if (user["subscription"]) {
-        setCurrSub(2);
+      if (user.subscription) {
+        setCurrSub(user.subscription);
       }
     }
   });
