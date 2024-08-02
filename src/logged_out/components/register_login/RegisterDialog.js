@@ -63,6 +63,8 @@ function RegisterDialog(props) {
           setStatus(result.message);
         }
         setIsLoading(false);
+        // eslint-disable-next-line no-restricted-globals
+        location.reload(true);
       }
     );
   }, [

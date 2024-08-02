@@ -83,7 +83,7 @@ function PricingSection(props) {
     if (userStr) {
       const user = JSON.parse(userStr)
       if (user.token) {
-        window.open(url + `&uid=${user.uid}`, "_blank")
+        window.open(url + `?checkout[custom][uid]=${user.uid}`, "_blank")
         return
       }
     }
