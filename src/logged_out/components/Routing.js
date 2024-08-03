@@ -6,9 +6,16 @@ import Home from "./home/Home";
 import Blog from "./blog/Blog";
 import BlogPost from "./blog/BlogPost";
 import useLocationBlocker from "../../shared/functions/useLocationBlocker";
+import PrivacyPolicy from "./home/Private";
 
 function Routing(props) {
-  const { blogPosts, selectBlog, selectHome, openRegisterDialog, openLoginDialog } = props;
+  const {
+    blogPosts,
+    selectBlog,
+    selectHome,
+    openRegisterDialog,
+    openLoginDialog,
+  } = props;
   useLocationBlocker();
   return (
     <Switch>
@@ -33,7 +40,18 @@ function Routing(props) {
         selectBlog={selectBlog}
         blogPosts={blogPosts}
       />
-      <PropsRoute path="/" component={Home} selectHome={selectHome} openRegisterDialog={openRegisterDialog} openLoginDialog={openLoginDialog} />
+      <PropsRoute
+        path="/private"
+        component={PrivacyPolicy}
+        openRegisterDialog={openRegisterDialog}
+      />
+      <PropsRoute
+        path="/"
+        component={Home}
+        selectHome={selectHome}
+        openRegisterDialog={openRegisterDialog}
+        openLoginDialog={openLoginDialog}
+      />
     </Switch>
   );
 }
@@ -43,7 +61,7 @@ Routing.propTypes = {
   selectHome: PropTypes.func.isRequired,
   selectBlog: PropTypes.func.isRequired,
   openRegisterDialog: PropTypes.func.isRequired,
-  openLoginDialog: PropTypes.func.isRequired
+  openLoginDialog: PropTypes.func.isRequired,
 };
 
 export default memo(Routing);
