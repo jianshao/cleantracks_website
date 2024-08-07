@@ -7,6 +7,7 @@ import Blog from "./blog/Blog";
 import BlogPost from "./blog/BlogPost";
 import useLocationBlocker from "../../shared/functions/useLocationBlocker";
 import PrivacyPolicy from "./home/Private";
+import TermsOfService from "./home/TermService";
 
 function Routing(props) {
   const {
@@ -41,8 +42,8 @@ function Routing(props) {
         blogPosts={blogPosts}
       />
       <PropsRoute
-        path="/private"
-        component={PrivacyPolicy}
+        path="/serviceterm"
+        component={TermsOfService}
         openRegisterDialog={openRegisterDialog}
       />
       <PropsRoute

@@ -149,7 +149,8 @@ function PricingSection(props) {
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
-          padding={5}
+          paddingTop={15}
+          paddingBottom={5}
           backgroundColor={"#e7f2ff"}
         >
           <Box flex={1} paddingBottom={1}>
