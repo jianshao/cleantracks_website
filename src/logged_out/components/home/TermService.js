@@ -1,8 +1,9 @@
+import { Typography } from '@mui/material';
 import React from 'react';
 
 const TermsOfService = () => {
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: 'auto' }}>
+    <div style={{ padding: '40px', maxWidth: '800px', margin: 'auto' }}>
       <h1>Terms of Service</h1>
       <p>Last updated: 2024-08-06</p>
 
@@ -30,6 +31,9 @@ const TermsOfService = () => {
       <p>
         <strong>Cancellation:</strong> You can cancel your subscription at any time. If you cancel, you will continue to have access to the Service until the end of your current billing period. No refunds will be issued for the remaining period of a subscription.
       </p>
+      <Typography variant="body1" paragraph>
+        <strong>Refund Policy:</strong> We offer refunds within the first 14 days of your subscription if you are not satisfied with the Service. To request a refund, please contact our support team at <strong>jianshao_@hotmail.com</strong>. Refunds will be processed within 7-10 business days.
+      </Typography>
 
       <h2>4. Use of the Service</h2>
       <p>
@@ -71,7 +75,7 @@ const TermsOfService = () => {
 
       <h2>11. Contact Us</h2>
       <p>
-        If you have any questions about these Terms, please contact us at jianshao_@hotmail.com.
+        If you have any questions about these Terms, please contact us at <strong>jianshao_@hotmail.com</strong>.
       </p>
     </div>
   );
