@@ -6,7 +6,6 @@ import Home from "./home/Home";
 import Blog from "./blog/Blog";
 import BlogPost from "./blog/BlogPost";
 import useLocationBlocker from "../../shared/functions/useLocationBlocker";
-import PrivacyPolicy from "./home/Private";
 import TermsOfService from "./home/TermService";
 
 function Routing(props) {
