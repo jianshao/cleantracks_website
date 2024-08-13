@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Button,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import PriceCard from "./PriceCard";
 import calculateSpacing from "./calculateSpacing";
@@ -77,19 +72,53 @@ function PricingSection(props) {
     },
   ];
 
+  // define items
+  let itemsList = [
+    {
+      priceId: process.env.PRICE_ID,
+      quantity: 1,
+    },
+    // {
+    //   priceId: "pri_01j4r9hzer7j9bws375kj1557w",
+    //   quantity: 1,
+    // },
+  ];
+
   function handleSubscribe() {
-    const url = "https://cleantracks.lemonsqueezy.com/buy/c4754107-8056-4f84-a9ca-f0e6826efdb9"
-    const userStr = localStorage.getItem("user")
+    const userStr = localStorage.getItem("user");
     if (userStr) {
-      const user = JSON.parse(userStr)
+      const user = JSON.parse(userStr);
       if (user.token) {
-        window.open(url + `?checkout[custom][uid]=${user.uid}`, "_blank")
-        return
+        console.log("user: ", user)
+        // 使用paddle
+        if (window.Paddle) {
+          window.Paddle.Checkout.open({
+            items: itemsList,
+            customer: { email: user.email },
+          });
+        }
+
+        // 使用lemonsquzzy
+        // const url =
+        //   "https://cleantracks.lemonsqueezy.com/buy/c4754107-8056-4f84-a9ca-f0e6826efdb9";
+        // window.open(url + `?checkout[custom][uid]=${user.uid}`, "_blank");
+        return;
       }
     }
-    openLoginDialog()
+    openLoginDialog();
   }
   useEffect(() => {
+    if (window.Paddle) {
+      window.Paddle.Environment.set("sandbox");
+      window.Paddle.Initialize({
+        token: process.env.APP_SECRET, // replace with a client-side token
+        // prints events to console for debugging
+        eventCallback: function (data) {
+          console.log("paddle: ", data);
+        },
+      });
+    }
+
     const userStr = localStorage.getItem("user");
     if (userStr) {
       const user = JSON.parse(userStr);
@@ -97,7 +126,8 @@ function PricingSection(props) {
         setCurrSub(user.subscription);
       }
     }
-  });
+  }, []);
+
   return (
     <div className="lg-p-top" style={{ backgroundColor: "#FFFFFF" }}>
       <Typography variant="h3" align="center" className="lg-mg-bottom">
@@ -187,7 +217,7 @@ function PricingSection(props) {
 }
 
 PricingSection.propTypes = {
-  openLoginDialog: PropTypes.func.isRequired
+  openLoginDialog: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(PricingSection);

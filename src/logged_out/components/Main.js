@@ -84,6 +84,7 @@ function Main(props) {
           console.log("check login requestL ", result);
           if (result.code === 0) {
             // 已登陆
+            localStorage.setItem("user", JSON.stringify(result.data));
           } else {
             localStorage.removeItem("user");
           }
