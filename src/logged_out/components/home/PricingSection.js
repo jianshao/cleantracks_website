@@ -75,7 +75,7 @@ function PricingSection(props) {
   // define items
   let itemsList = [
     {
-      priceId: process.env.PRICE_ID,
+      priceId: process.env.REACT_APP_PRICE_ID,
       quantity: 1,
     },
     // {
@@ -108,12 +108,12 @@ function PricingSection(props) {
     openLoginDialog();
   }
   useEffect(() => {
-    console.log("secret: ", process.env.APP_SECRET)
-    console.log("secret: ", process.env.PRICE_ID)
+    console.log("secret: ", process.env.REACT_APP_APP_SECRET)
+    console.log("secret: ", process.env.REACT_APP_PRICE_ID)
     if (window.Paddle) {
       // window.Paddle.Environment.set("sandbox");
       window.Paddle.Initialize({
-        token: process.env.APP_SECRET, // replace with a client-side token
+        token: process.env.REACT_APP_APP_SECRET, // replace with a client-side token
         // prints events to console for debugging
         eventCallback: function (data) {
           console.log("paddle: ", data);
