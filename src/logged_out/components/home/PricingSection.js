@@ -108,8 +108,10 @@ function PricingSection(props) {
     openLoginDialog();
   }
   useEffect(() => {
+    console.log("secret: ", process.env.APP_SECRET)
+    console.log("secret: ", process.env.PRICE_ID)
     if (window.Paddle) {
-      window.Paddle.Environment.set("sandbox");
+      // window.Paddle.Environment.set("sandbox");
       window.Paddle.Initialize({
         token: process.env.APP_SECRET, // replace with a client-side token
         // prints events to console for debugging
