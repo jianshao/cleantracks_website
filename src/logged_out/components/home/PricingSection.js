@@ -108,8 +108,9 @@ function PricingSection(props) {
     openLoginDialog();
   }
   useEffect(() => {
-    console.log("secret: ", process.env.REACT_APP_APP_SECRET)
-    console.log("secret: ", process.env.REACT_APP_PRICE_ID)
+    if (process.env.REACT_APP_APP_SECRET) {
+      console.log("api ok")
+    }
     if (window.Paddle) {
       // window.Paddle.Environment.set("sandbox");
       window.Paddle.Initialize({
