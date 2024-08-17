@@ -46,62 +46,78 @@ function PricingSection(props) {
   const { classes, theme, openLoginDialog } = props;
   const width = useWidth();
   // const isWidthUpMd = useMediaQuery(theme.breakpoints.up("md"));
-  const [currSub, setCurrSub] = useState(1);
+  const [currSub, setCurrSub] = useState(2);
 
   const SubCards = [
     {
       type: 1,
       title: "Free Trial",
-      features: ["7 days", "Customize Conifg", "Automatic Clean"],
+      features: [
+        { key: "Customize Conifg", status: 1 },
+        { key: "Automatic Clean", status: 1 },
+        { key: "Clear History", status: 1 },
+        { key: "Clear Cookie", status: 1 },
+        { key: "Total 100 Sites", status: 1 },
+        { key: "Clear Cache", status: 0 },
+        { key: "Clear Storage", status: 0 },
+      ],
       price: "$0",
-      union: "month",
+      union: "7 day",
+      disable: true,
     },
     {
       type: 2,
-      title: "Monthly",
-      features: ["Whole Month", "Customize Conifg", "Automatic Clean"],
+      title: "Base",
+      features: [
+        { key: "Customize Conifg", status: 1 },
+        { key: "Automatic Clean", status: 1 },
+        { key: "Clear History", status: 1 },
+        { key: "Clear Cookie", status: 1 },
+        { key: "Total 100 Sites", status: 1 },
+        { key: "Clear Cache", status: 0 },
+        { key: "Clear Storage", status: 0 },
+      ],
       price: "$3.99",
       union: "month",
+      price_id: process.env.REACT_APP_PRICE_ID_BASE,
     },
     {
       type: 3,
-      title: "Yearly",
-      features: ["One Year", "Customize Conifg", "Automatic Clean"],
-      price: "44.99",
-      union: "year",
+      title: "Pro",
+      features: [
+        { key: "Customize Conifg", status: 1 },
+        { key: "Automatic Clean", status: 1 },
+        { key: "Clear History", status: 1 },
+        { key: "Clear Cookie", status: 1 },
+        { key: "Clear Cache", status: 1 },
+        { key: "Clear Storage", status: 1 },
+        { key: "Unlimited Sites", status: 1 },
+      ],
+      price: "$6.99",
+      union: "month",
+      price_id: process.env.REACT_APP_PRICE_ID_PRO,
     },
   ];
 
-  // define items
-  let itemsList = [
-    {
-      priceId: process.env.REACT_APP_PRICE_ID,
-      quantity: 1,
-    },
-    // {
-    //   priceId: "pri_01j4r9hzer7j9bws375kj1557w",
-    //   quantity: 1,
-    // },
-  ];
-
-  function handleSubscribe() {
+  function handleSubscribe(price_id) {
+    const items = [
+      {
+        priceId: price_id,
+        quantity: 1,
+      },
+    ];
     const userStr = localStorage.getItem("user");
     if (userStr) {
       const user = JSON.parse(userStr);
       if (user.token) {
-        console.log("user: ", user)
+        console.log("user: ", user);
         // 使用paddle
         if (window.Paddle) {
           window.Paddle.Checkout.open({
-            items: itemsList,
+            items: items,
             customer: { email: user.email },
           });
         }
-
-        // 使用lemonsquzzy
-        // const url =
-        //   "https://cleantracks.lemonsqueezy.com/buy/c4754107-8056-4f84-a9ca-f0e6826efdb9";
-        // window.open(url + `?checkout[custom][uid]=${user.uid}`, "_blank");
         return;
       }
     }
@@ -109,10 +125,13 @@ function PricingSection(props) {
   }
   useEffect(() => {
     if (process.env.REACT_APP_APP_SECRET) {
-      console.log("api ok")
+      console.log("api ok");
     }
     if (window.Paddle) {
-      // window.Paddle.Environment.set("sandbox");
+      if (process.env.REACT_APP_PADDLE_ENV) {
+        window.Paddle.Environment.set(process.env.REACT_APP_PADDLE_ENV);
+      }
+
       window.Paddle.Initialize({
         token: process.env.REACT_APP_APP_SECRET, // replace with a client-side token
         // prints events to console for debugging
@@ -126,7 +145,7 @@ function PricingSection(props) {
     if (userStr) {
       const user = JSON.parse(userStr);
       if (user.subscription) {
-        setCurrSub(user.subscription);
+        // setCurrSub(user.subscription);
       }
     }
   }, []);
@@ -140,7 +159,6 @@ function PricingSection(props) {
         <Grid
           container
           spacing={calculateSpacing(width, theme)}
-          className={classes.gridContainer}
         >
           {SubCards.map((element) => {
             return (
@@ -148,7 +166,7 @@ function PricingSection(props) {
                 item
                 xs={12}
                 sm={6}
-                lg={4}
+                lg={12 / SubCards.length}
                 className={
                   element.type === currSub
                     ? classes.cardWrapperHighlighted
@@ -170,6 +188,10 @@ function PricingSection(props) {
                     </span>
                   }
                   features={element.features}
+                  onClick={() => {
+                    handleSubscribe(element.price_id);
+                  }}
+                  disable={element.disable}
                 />
               </Grid>
             );

@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button, Stack } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import CheckIcon from "@mui/icons-material/Check";
+import { Close } from "@mui/icons-material";
 
 const styles = (theme) => ({
   card: {
@@ -11,7 +12,7 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
     marginTop: theme.spacing(2),
-    border: `3px solid ${theme.palette.primary.main}`,
+    border: `3px solid ${theme.palette.primary.main}80`,
     borderRadius: theme.shape.borderRadius * 2,
   },
   cardHightlighted: {
@@ -21,7 +22,7 @@ const styles = (theme) => ({
     paddingRight: theme.spacing(4),
     border: `3px solid ${theme.palette.primary.main}`,
     borderRadius: theme.shape.borderRadius * 2,
-    backgroundColor: theme.palette.primary.main,
+    // backgroundColor: theme.palette.primary.main,
     [theme.breakpoints.down("sm")]: {
       marginTop: theme.spacing(2),
     },
@@ -29,47 +30,74 @@ const styles = (theme) => ({
   title: {
     color: theme.palette.primary.main,
   },
+  highlightedTitle: {
+    color: "#f09a1a",
+  },
 });
 
+// price table包括3个部分：title、price、features、订阅控制信息
 function PriceCard(props) {
-  const { classes, theme, title, pricing, features, highlighted } = props;
+  const { classes, theme, title, pricing, features, highlighted, onClick, disable } =
+    props;
+
   return (
     <div className={highlighted ? classes.cardHightlighted : classes.card}>
       <Box mb={2}>
         <Typography
-          variant={highlighted ? "h5" : "h6"}
-          className={highlighted ? "text-white" : classes.title}
+          textAlign={"center"}
+          variant={highlighted ? "h4" : "h5"}
+          className={classes.title}
         >
           {title}
         </Typography>
       </Box>
       <Box mb={2}>
-        <Typography
-          variant={highlighted ? "h3" : "h4"}
-          className={highlighted ? "text-white" : null}
-        >
+        <Typography textAlign={"center"} variant={highlighted ? "h3" : "h4"}>
           {pricing}
         </Typography>
       </Box>
       {features.map((feature, index) => (
         <Box display="flex" alignItems="center" mb={1} key={index}>
-          <CheckIcon
-            style={{
-              color: highlighted
-                ? theme.palette.common.white
-                : theme.palette.primary.dark,
-            }}
-          />
+          {feature.status ? (
+            <CheckIcon
+              style={{
+                color: theme.palette.primary.dark,
+              }}
+            />
+          ) : (
+            <Close
+              style={{
+                color: "#d32f2f",
+              }}
+            />
+          )}
+
           <Box ml={1}>
             <Typography
-              className={highlighted ? "text-white" : null}
+              // className={highlighted ? "#f09a1a" : null}
               variant={highlighted ? "h6" : "body1"}
             >
-              {feature}
+              {feature.key}
             </Typography>
           </Box>
         </Box>
       ))}
+      <Box mb={2} paddingTop={5}>
+        <Stack
+          display={"flex"}
+          justifyContent={"center"}
+          alignContent={"stretch"}
+        >
+          <Button
+            variant="contained"
+            sx={{ borderRadius: 5 }}
+            disabled={disable}
+            onClick={onClick}
+          >
+            subscribe
+          </Button>
+        </Stack>
+      </Box>
     </div>
   );
 }

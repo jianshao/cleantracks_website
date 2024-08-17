@@ -15,15 +15,15 @@ const features = [
   {
     color: "#00C853",
     headline: "Automatic Cleaning",
-    text: "Effortlessly keep your browser history and cookies clean.",
+    text: "Automatically delete cookies and browsing history.",
     icon: <BuildIcon style={{ fontSize: iconSize }} />,
     mdDelay: "0",
     smDelay: "0",
   },
   {
     color: "#6200EA",
-    headline: "Privacy Protection",
-    text: "Ensure your browsing data remains private and secure.",
+    headline: "Customized configuration",
+    text: "Can be configured and cleaned for specified websites.",
     icon: <CalendarTodayIcon style={{ fontSize: iconSize }} />,
     mdDelay: "200",
     smDelay: "200",
@@ -31,7 +31,7 @@ const features = [
   {
     color: "#0091EA",
     headline: "Easy to Use",
-    text: "Simple setup and seamless integration with your browser.",
+    text: "Configure specific websites with just one click.",
     icon: <MeassageIcon style={{ fontSize: iconSize }} />,
     mdDelay: "400",
     smDelay: "0",

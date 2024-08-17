@@ -14,8 +14,8 @@ function Home(props) {
   return (
     <Fragment>
       <Helmet>
-        <title>Delete Cookies</title>
-        <meta name="description" content="Effortlessly safeguard your privacy. This Chrome extension auto-cleans history and cookies for chosen sites, leaving no trace behind—total control, total peace of mind." />
+        <title>CleanTracks</title>
+        <meta name="description" content="This Chrome extension auto-clean history and cookies for chosen sites, leaving no trace behind—total control, total peace of mind." />
         <meta name="keywords" content="delete cookie, delete history, auto browser cleaner, clear cookies" />
       </Helmet>
       <HeadSection openRegisterDialog={openRegisterDialog} />
