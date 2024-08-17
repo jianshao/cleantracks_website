@@ -145,7 +145,7 @@ function PricingSection(props) {
     if (userStr) {
       const user = JSON.parse(userStr);
       if (user.subscription) {
-        // setCurrSub(user.subscription);
+        setCurrSub(2);
       }
     }
   }, []);
