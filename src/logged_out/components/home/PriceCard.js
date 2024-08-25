@@ -37,7 +37,7 @@ const styles = (theme) => ({
 
 // price table包括3个部分：title、price、features、订阅控制信息
 function PriceCard(props) {
-  const { classes, theme, title, pricing, features, highlighted, onClick, disable } =
+  const { classes, theme, title, pricing, features, highlighted, onClick, disable, subscribe } =
     props;
 
   return (
@@ -94,7 +94,7 @@ function PriceCard(props) {
             disabled={disable}
             onClick={onClick}
           >
-            subscribe
+            {subscribe}
           </Button>
         </Stack>
       </Box>

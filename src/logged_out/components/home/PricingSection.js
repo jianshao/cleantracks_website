@@ -51,23 +51,24 @@ function PricingSection(props) {
   const SubCards = [
     {
       type: 1,
-      title: "Free Trial",
+      title: "Base",
       features: [
         { key: "Customize Conifg", status: 1 },
         { key: "Automatic Clean", status: 1 },
         { key: "Clear History", status: 1 },
-        { key: "Clear Cookie", status: 1 },
-        { key: "Total 100 Sites", status: 1 },
+        { key: "Total 50 Sites", status: 1 },
+        { key: "Clear Cookie", status: 0 },
         { key: "Clear Cache", status: 0 },
         { key: "Clear Storage", status: 0 },
       ],
       price: "$0",
-      union: "7 day",
+      union: "month",
+      subscribe: "already is",
       disable: true,
     },
     {
       type: 2,
-      title: "Base",
+      title: "Pro",
       features: [
         { key: "Customize Conifg", status: 1 },
         { key: "Automatic Clean", status: 1 },
@@ -80,10 +81,11 @@ function PricingSection(props) {
       price: "$3.99",
       union: "month",
       price_id: process.env.REACT_APP_PRICE_ID_BASE,
+      subscribe: "subscribe",
     },
     {
       type: 3,
-      title: "Pro",
+      title: "Super",
       features: [
         { key: "Customize Conifg", status: 1 },
         { key: "Automatic Clean", status: 1 },
@@ -96,6 +98,8 @@ function PricingSection(props) {
       price: "$6.99",
       union: "month",
       price_id: process.env.REACT_APP_PRICE_ID_PRO,
+      disable: true,
+      subscribe: "waiting",
     },
   ];
 
@@ -156,10 +160,7 @@ function PricingSection(props) {
         Subscription
       </Typography>
       <div className={classNames("container-fluid", classes.containerFix)}>
-        <Grid
-          container
-          spacing={calculateSpacing(width, theme)}
-        >
+        <Grid container spacing={calculateSpacing(width, theme)}>
           {SubCards.map((element) => {
             return (
               <Grid
@@ -192,6 +193,7 @@ function PricingSection(props) {
                     handleSubscribe(element.price_id);
                   }}
                   disable={element.disable}
+                  subscribe={element.subscribe}
                 />
               </Grid>
             );
