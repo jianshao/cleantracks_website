@@ -1,4 +1,4 @@
-const base_url = "https://api.takecares.cn";
+const base_url = "http://localhost:9999";
 
 function request(api, options) {
   return fetch(base_url + api, options).then((response) => {
@@ -6,7 +6,7 @@ function request(api, options) {
     if (response.ok) {
       return response.json();
     } else {
-      console.log("request failed: ", api)
+      console.log("request failed: ", api);
       return {};
     }
   });

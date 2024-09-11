@@ -51,11 +51,11 @@ function PricingSection(props) {
   const SubCards = [
     {
       type: 1,
-      title: "Base",
+      title: "Free",
       features: [
         { key: "Customize Conifg", status: 1 },
         { key: "Automatic Clean", status: 1 },
-        { key: "Clear History", status: 1 },
+        { key: "Clear Browsing History", status: 1 },
         { key: "Total 50 Sites", status: 1 },
         { key: "Clear Cookie", status: 0 },
         { key: "Clear Cache", status: 0 },
@@ -72,7 +72,7 @@ function PricingSection(props) {
       features: [
         { key: "Customize Conifg", status: 1 },
         { key: "Automatic Clean", status: 1 },
-        { key: "Clear History", status: 1 },
+        { key: "Clear Browsing History", status: 1 },
         { key: "Clear Cookie", status: 1 },
         { key: "Total 100 Sites", status: 1 },
         { key: "Clear Cache", status: 0 },
@@ -89,7 +89,7 @@ function PricingSection(props) {
       features: [
         { key: "Customize Conifg", status: 1 },
         { key: "Automatic Clean", status: 1 },
-        { key: "Clear History", status: 1 },
+        { key: "Clear Browsing History", status: 1 },
         { key: "Clear Cookie", status: 1 },
         { key: "Clear Cache", status: 1 },
         { key: "Clear Storage", status: 1 },

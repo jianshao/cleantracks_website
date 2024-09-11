@@ -167,7 +167,7 @@ function HeadSection(props) {
                                   label: classes.extraLargeButtonLabel,
                                 }}
                               >
-                                Start Free Trial
+                                Free To Start
                               </Button>
                             </Grid>
                             <Grid item sx={4}>
