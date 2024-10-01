@@ -1,4 +1,5 @@
-const base_url = "http://localhost:9999";
+// const base_url = "http://localhost:9999";
+const base_url = "https://api.takecares.cn";
 
 function request(api, options) {
   return fetch(base_url + api, options).then((response) => {
